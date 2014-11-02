@@ -8,38 +8,35 @@ public class routeInfo {
     String charge;
     String plannedTime;
 
-    class station{
-        String name;
-        String depatureTime;
-        String arrivalTime;
 
-        // コンストラクタ
-        station(String name){
-            this.name = name;
-            this.depatureTime = null;
-            this.arrivalTime = null;
-        }
+    String name;
+    String depatureTime;
+    String arrivalTime;
 
-        // セッター
-        void depatureSet(String time){
-            this.depatureTime = time;
-        }
-        void arrivalSet(String time){
-            this.arrivalTime = time;
-        }
-
-        // ゲッター
-        String depatureGet(){
-            return this.depatureTime;
-        }
-        String arrivalGet(){
-            return this.arrivalTime;
-        }
-
-
-
-
+    // コンストラクタ
+    routeInfo() {
+        this.name = null;
+        this.depatureTime = null;
+        this.arrivalTime = null;
     }
 
-}
+    // セッター
+    void depatureSet(String time) {
+        this.depatureTime = time;
+    }
 
+    void arrivalSet(String time) {
+        this.arrivalTime = time;
+    }
+
+    // ゲッター
+    String depatureGet() {
+        return this.depatureTime;
+    }
+
+    String arrivalGet() {
+        return this.arrivalTime;
+    }
+
+//station a = new station()
+}
