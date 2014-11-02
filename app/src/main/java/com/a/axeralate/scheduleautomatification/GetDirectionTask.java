@@ -58,6 +58,6 @@ public class GetDirectionTask extends AsyncTask<String,Void,String> {
     }
 */
     public static interface OnImageGetFinishListener {
-        public void onImageGetFinish(Bitmap bitmap);
+        public void onImageGetFinish(String bitmap);
     }
 }
