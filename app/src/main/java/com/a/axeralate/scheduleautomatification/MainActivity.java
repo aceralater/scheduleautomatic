@@ -105,7 +105,7 @@ public class MainActivity extends Activity {
                 //インテントスタンス
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("https://www.google.com/calendar/"));
+                intent.setData(Uri.parse("http://www.google.com/"));
                 //ブラウザ
                 startActivity(intent);
             }

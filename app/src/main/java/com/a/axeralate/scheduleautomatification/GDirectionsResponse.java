@@ -122,14 +122,50 @@ public class GDirectionsResponse {
         }
     }
     public class GStep {
+        private List<GStep> steps;
         private String html_instructions;
         private GDistance distance;
         private GDuration duration;
         private GLocation start_location;
         private GLocation end_location;
+        private TransitDetails transit_details;
         private GPolyline polyline;
         private String travel_mode;
+
+        public final List<GStep> getSteps() {
+            return steps;
+        }
+        public String getHtml_instructions() {
+            return html_instructions;
+        }
+
+        public GDistance getDistance() {
+            return distance;
+        }
+
+        public GDuration getDuration() {
+            return duration;
+        }
+
+        public GLocation getStart_location() {
+            return start_location;
+        }
+
+        public GLocation getEnd_location() {
+            return end_location;
+        }
+        public TransitDetails getTransitDetails(){
+            return transit_details;
+        }
+        public GPolyline getPolyline() {
+            return polyline;
+        }
+
+        public String getTravel_mode() {
+            return travel_mode;
+        }
     }
+
     public class GDistance {
         private int value;
         private String text;
@@ -169,6 +205,29 @@ public class GDirectionsResponse {
         public final String getText() {
             return text;
         }
+    }
+    public class TransitDetails {
+
+        private Stop arrival_stop;
+        private Stop departure_stop;
+
+        public Stop getArrival_stop() {
+            return arrival_stop;
+        }
+
+        public Stop getDeparture_stop() {
+            return departure_stop;
+        }
+
+        public class Stop
+        {
+            String name;
+
+            public String getName() {
+                return name;
+            }
+        }
+
     }
     public class GStatus {
         public static final String OK = "OK";
