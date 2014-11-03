@@ -15,7 +15,7 @@
         android:layout_marginTop="30dp" />
     <TextView
         android:id="@+id/textView3"
-        android:text="st"
+        android:text="St"
         android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:text="st"
+        android:text="St"
         android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
 
     <TextView
         android:id="@+id/cost2"
-        android:text="※fee"
+        android:text="※14"
         android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -150,12 +150,23 @@
         android:layout_marginLeft="110dp"
         android:layout_marginTop="75dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/textView12"
+        android:layout_alignLeft="@+id/lunguage2"
+        android:layout_alignStart="@+id/lunguage2" />
 
-
-
-
-
-
+    <ViewAnimator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewAnimator"
+        android:layout_alignBottom="@+id/cost2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="149dp" />
 
 
 </RelativeLayout>
