@@ -1,14 +1,23 @@
 package com.a.axeralate.scheduleautomatification;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.a.axeralate.scheduleautomatification.R.layout.page_change;
 
@@ -20,8 +29,40 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        routeInfo k = new routeInfo();
-        k.depatureSet("あいおうえお");
+
+        String provider_name;
+        if( 8 > Build.VERSION.SDK_INT ) {
+            provider_name = "content://calendar/";
+        } else {
+            provider_name = "content://com.android.calendar/";
+        }
+        long now = new Date().getTime();
+        Uri schedule_uri   = Uri.parse(provider_name + "instances/when/" + now + "/" + (now + DateUtils.WEEK_IN_MILLIS));
+
+        Context app_context = getApplicationContext();
+        ContentResolver content_resolver = app_context.getContentResolver();
+        Cursor cursor  = content_resolver.query(schedule_uri, null,"begin>="+now,null,"begin ASC");
+        if(  cursor.moveToFirst()) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy/MM/dd HH:mm");
+            do {
+                String str_title          = cursor.getString(cursor.getColumnIndexOrThrow("title")        );
+                String str_description    = cursor.getString(cursor.getColumnIndexOrThrow("description")  );
+                String str_eventLocation  = cursor.getString(cursor.getColumnIndexOrThrow("eventLocation"));
+                Long long_begin  = cursor.getLong  (cursor.getColumnIndexOrThrow("begin"));
+                String str_tstart = simpleDateFormat.format(long_begin);
+/*
+            TextView tv = new TextView(this);
+            tv.setText (str_title);
+            setContentView(tv);
+*/
+
+                Log.d("test", str_title);
+                Log.d("location",str_eventLocation);
+
+            } while( cursor.moveToNext() );
+        }
+//        routeInfo k = new routeInfo();
+//        k.depatureSet("あいおうえお");
 
 //routeInfo.station.class::depatureSet("渋谷");
 
@@ -30,7 +71,7 @@ public class MainActivity extends Activity {
 
         TextView timeView1 = (TextView) findViewById(R.id.time1);
         // テキストビューのテキストを設定
-        timeView1.setText(k.depatureGet());
+//        timeView1.setText(k.depatureGet());
 
         TextView placeView1 = (TextView) findViewById(R.id.textView1);
         // テキストビューのテキストを設定
@@ -49,7 +90,7 @@ public class MainActivity extends Activity {
 
         TextView timeView2 = (TextView) findViewById(R.id.time2);
         // テキストビューのテキストを設定
-        timeView2.setText(k.depatureGet());
+//        timeView2.setText(k.depatureGet());
 
         TextView placeView2 = (TextView) findViewById(R.id.textView2);
         // テキストビューのテキストを設定
