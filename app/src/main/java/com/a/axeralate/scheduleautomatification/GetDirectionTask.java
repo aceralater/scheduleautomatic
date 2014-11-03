@@ -2,18 +2,23 @@ package com.a.axeralate.scheduleautomatification;
 
 import android.os.AsyncTask;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.InputMismatchException;
 
 /**
  * Created by th on 2014/11/02.
  */
-public class GetDirectionTask extends AsyncTask<String,Void,String> {
-    private OnImageGetFinishListener mListener;
+public class GetDirectionTask extends AsyncTask<String,Void,GDirectionsResponse> {
+    private OnGetDirectionFinishListener mListener;
 
-    public GetDirectionTask(OnImageGetFinishListener listener) {
+    public GetDirectionTask(OnGetDirectionFinishListener listener) {
         super();
         mListener = listener;
     }
@@ -26,16 +31,14 @@ public class GetDirectionTask extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected GDirectionsResponse doInBackground(String... params) {
 
-        InputStream stream;
+       InputStream stream;
        String str = null;
 
         try {
             stream = new URL(params[0]).openStream();
-            /*
-            bitmap = BitmapFactory.decodeStream(stream);
-            */
+            str = convertString(stream);
             stream.close();
 
         } catch (MalformedURLException e) {
@@ -43,21 +46,34 @@ public class GetDirectionTask extends AsyncTask<String,Void,String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return str;
+        Gson gson = new Gson();
+        GDirectionsResponse result = gson.fromJson(str, GDirectionsResponse.class);
+        return result;
     }
-/*
+
+    public String convertString(InputStream stream)
+        throws IOException {
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while (null != (line = reader.readLine())){
+                sb.append(line);
+            }
+        return sb.toString();
+    }
+
     @Override
-    protected void onPostExecute(Bitmap bitmap) {
-        super.onPostExecute(bitmap);
+    protected void onPostExecute(GDirectionsResponse result) {
+        super.onPostExecute(result);
 
         // タスク終了後に呼ばれます
 
-        mListener.onImageGetFinish(bitmap);
+        mListener.onGetDirectionFinish(result);
         mListener = null;
     }
-*/
-    public static interface OnImageGetFinishListener {
-        public void onImageGetFinish(String bitmap);
+
+    public static interface OnGetDirectionFinishListener {
+        public void onGetDirectionFinish(GDirectionsResponse result);
     }
 }
